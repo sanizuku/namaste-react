@@ -38,8 +38,14 @@
     cursor: pointer;
 }
 .search{
-    padding: 10px;
+    padding: 5px;
 }
 .filter-btn{
     margin:5px
+}
+.filter{
+    display: flex;
+}
+.login{
+    padding: 10px;
 }
