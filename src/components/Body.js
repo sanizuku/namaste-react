@@ -1,20 +1,24 @@
-import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import RestaurantCard, { WithBadge } from "./RestaurantCard";
+import { useContext, useEffect, useState } from "react";
 import { swiggy_api_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import userContext from "../utils/UserContext";
 
 const Body = () => {
   //Local State Variable - super powerfull state variable
   const [listOfRestaurants, setrestaurantList] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const RestaurantCardBadge = WithBadge(RestaurantCard);
   console.log("BodyRendered");
+  const { loggedInUser, setUserName } = useContext(userContext);
 
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     // handle the error using try... catch
 
@@ -55,11 +59,11 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex">
+        <div className="m-4 p-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
@@ -71,6 +75,7 @@ const Body = () => {
             }}
           ></input>
           <button
+            className="px-3 py-1.5 m-4 bg-orange-200 hover:bg-orange-300 rounded-lg"
             onClick={() => {
               //filter the restaurant cards and update the UI
               //searchText
@@ -84,26 +89,53 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filterData = listOfRestaurants.filter((res) => {
-              return res.info.avgRating > 4.4;
-            });
-            setFilteredRestaurant(filterData);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+        <div className="m-4 p-4 flex">
+          <div>
+            <button
+              className="px-3 py-1.5 m-4 bg-orange-200 hover:bg-orange-300 rounded-lg"
+              onClick={() => {
+                const filterData = listOfRestaurants.filter((res) => {
+                  return res.info.avgRating > 4.4;
+                });
+                setFilteredRestaurant(filterData);
+              }}
+            >
+              Top Rated Restaurants
+            </button>
+          </div>
+
+          <div className="my-1 p-2">
+            <label className="px-1">UserName :</label>
+            <input
+              type="text"
+              className=" p-2 border border-solid border-black"
+              value={loggedInUser}
+              onChange={(e) => {
+                setUserName(e.target.value);
+                // setSearchText(e.target.value);
+                //  const SearchedData =   listOfRestaurants.filter(res=>
+                //   res.info.name.toLowerCase().includes(e.target.value.toLowerCase())
+
+                //     )
+                //     setFilteredRestaurant(SearchedData)
+              }}
+            ></input>
+          </div>
+        </div>
       </div>
-      <div className="res-Container">
+      <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => {
           return (
             <Link
               key={restaurant.info.id}
               to={"/restaurants/" + restaurant.info.id}
             >
-              <RestaurantCard resData={restaurant} />
+              {restaurant.info.aggregatedDiscountInfoV3 ? (
+                <RestaurantCardBadge resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
+              {/* <RestaurantCard resData={restaurant} /> */}
             </Link> //built markup as well as logic returning jsx
           );
         })}
