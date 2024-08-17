@@ -3126,7 +3126,7 @@ $RefreshReg$(_c1, "AppLayout");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","/index.css":"giGSC","./components/Header":"hsJbF","./components/Body":"8yaV8","react-router-dom":"9xmpe","./components/About":"9R1Eu","./components/Error":"kvula","./components/Contact":"cgAOG","./components/RestaurantMenu":"8PuJ6","./utils/UserContext":"c5vgB","react-redux":"62sf7","./utils/appStore":"6A5Ux","6bf9e24f54814dcb":"e2h3k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/Cart":"h8J3U"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","/index.css":"giGSC","./components/Header":"hsJbF","./components/Body":"8yaV8","react-router-dom":"9xmpe","./components/About":"9R1Eu","./components/Error":"kvula","./components/Contact":"cgAOG","./components/RestaurantMenu":"8PuJ6","./utils/UserContext":"c5vgB","react-redux":"62sf7","./utils/appStore":"6A5Ux","./components/Cart":"h8J3U","6bf9e24f54814dcb":"e2h3k","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -35385,7 +35385,7 @@ const Body = ()=>{
         // handle the error using try... catch
         const response = await fetch((0, _constants.swiggy_api_URL));
         const json = await response.json();
-        //  console.log(json)
+        // console.log(json);
         // initialize checkJsonData() function to check Swiggy Restaurant data
         async function checkJsonData(jsonData) {
             for(let i = 0; i < jsonData?.data?.cards.length; i++){
@@ -40549,7 +40549,95 @@ const appStore = (0, _toolkit.configureStore)({
 });
 exports.default = appStore;
 
-},{"@reduxjs/toolkit":"fuua8","./cartSlice":"5RXlr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e2h3k":[function(require,module,exports) {
+},{"@reduxjs/toolkit":"fuua8","./cartSlice":"5RXlr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"h8J3U":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$ad24 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$ad24.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _reactRedux = require("react-redux");
+var _itemMenu = require("./ItemMenu");
+var _itemMenuDefault = parcelHelpers.interopDefault(_itemMenu);
+var _cartSlice = require("../utils/cartSlice");
+var _s = $RefreshSig$();
+const Cart = ()=>{
+    _s();
+    const cartItem = (0, _reactRedux.useSelector)((store)=>store.cart.items);
+    const dispatch = (0, _reactRedux.useDispatch)();
+    const handleClearCart = ()=>{
+        dispatch((0, _cartSlice.clearCart)());
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "text-center m-4 p-4",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                className: "text-2xl font-bold",
+                children: "Cart"
+            }, void 0, false, {
+                fileName: "src/components/Cart.js",
+                lineNumber: 14,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "w-6/12 m-auto",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        className: "p-2 m-2 bg-black cursor-pointer text-white rounded-lg",
+                        onClick: handleClearCart,
+                        children: "Clear Cart"
+                    }, void 0, false, {
+                        fileName: "src/components/Cart.js",
+                        lineNumber: 16,
+                        columnNumber: 9
+                    }, undefined),
+                    cartItem.length == 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                        children: " Cart is Empty. Please Add Items to the cart"
+                    }, void 0, false, {
+                        fileName: "src/components/Cart.js",
+                        lineNumber: 23,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _itemMenuDefault.default), {
+                        item: cartItem
+                    }, void 0, false, {
+                        fileName: "src/components/Cart.js",
+                        lineNumber: 25,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Cart.js",
+                lineNumber: 15,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/Cart.js",
+        lineNumber: 13,
+        columnNumber: 5
+    }, undefined);
+};
+_s(Cart, "FRLE+7Pjz1LhpgyE+v1YwWY3g2k=", false, function() {
+    return [
+        (0, _reactRedux.useSelector),
+        (0, _reactRedux.useDispatch)
+    ];
+});
+_c = Cart;
+exports.default = Cart;
+var _c;
+$RefreshReg$(_c, "Cart");
+
+  $parcel$ReactRefreshHelpers$ad24.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react-redux":"62sf7","./ItemMenu":"nRJuO","../utils/cartSlice":"5RXlr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"e2h3k":[function(require,module,exports) {
 module.exports = require("29af259fc1f64a1c")(require("4c1094922790cfac").getBundleURL("aXMci") + "Grocery.c52c2ad2.js" + "?" + Date.now()).catch((err)=>{
     delete module.bundle.cache[module.id];
     throw err;
@@ -40652,94 +40740,6 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"h8J3U":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$ad24 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$ad24.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _reactRedux = require("react-redux");
-var _itemMenu = require("./ItemMenu");
-var _itemMenuDefault = parcelHelpers.interopDefault(_itemMenu);
-var _cartSlice = require("../utils/cartSlice");
-var _s = $RefreshSig$();
-const Cart = ()=>{
-    _s();
-    const cartItem = (0, _reactRedux.useSelector)((store)=>store.cart.items);
-    const dispatch = (0, _reactRedux.useDispatch)();
-    const handleClearCart = ()=>{
-        dispatch((0, _cartSlice.clearCart)());
-    };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "text-center m-4 p-4",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                className: "text-2xl font-bold",
-                children: "Cart"
-            }, void 0, false, {
-                fileName: "src/components/Cart.js",
-                lineNumber: 14,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "w-6/12 m-auto",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "p-2 m-2 bg-black cursor-pointer text-white rounded-lg",
-                        onClick: handleClearCart,
-                        children: "Clear Cart"
-                    }, void 0, false, {
-                        fileName: "src/components/Cart.js",
-                        lineNumber: 16,
-                        columnNumber: 9
-                    }, undefined),
-                    cartItem.length == 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                        children: " Cart is Empty. Please Add Items to the cart"
-                    }, void 0, false, {
-                        fileName: "src/components/Cart.js",
-                        lineNumber: 23,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _itemMenuDefault.default), {
-                        item: cartItem
-                    }, void 0, false, {
-                        fileName: "src/components/Cart.js",
-                        lineNumber: 25,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/Cart.js",
-                lineNumber: 15,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/Cart.js",
-        lineNumber: 13,
-        columnNumber: 5
-    }, undefined);
-};
-_s(Cart, "FRLE+7Pjz1LhpgyE+v1YwWY3g2k=", false, function() {
-    return [
-        (0, _reactRedux.useSelector),
-        (0, _reactRedux.useDispatch)
-    ];
-});
-_c = Cart;
-exports.default = Cart;
-var _c;
-$RefreshReg$(_c, "Cart");
-
-  $parcel$ReactRefreshHelpers$ad24.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-redux":"62sf7","./ItemMenu":"nRJuO","../utils/cartSlice":"5RXlr"}]},["9wh9R","1xC6H","2kQhy"], "2kQhy", "parcelRequireb877")
+},{}]},["9wh9R","1xC6H","2kQhy"], "2kQhy", "parcelRequireb877")
 
 //# sourceMappingURL=index.7271efb6.js.map
