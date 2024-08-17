@@ -7,6 +7,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
+      //Redux toolkit uses Immer library Behind the scenes
       state.items.push(action.payload);
     },
     removeItem: (state, action) => {

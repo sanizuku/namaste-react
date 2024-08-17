@@ -35,7 +35,7 @@ const Header = () => {
             <Link to="/Grocery">Grocery Mart</Link>
           </li>
           <li className="font-bold p-2 my-4 hover:bg-orange-300">
-            🛒({cartItem.length})
+            <Link to="/Cart">🛒({cartItem.length})</Link>
           </li>
           <button
             className=" p-2 my-4 hover:bg-slate-500  bg-gray-200 rounded-md "
