@@ -24,7 +24,7 @@ const Body = () => {
 
     const response = await fetch(swiggy_api_URL);
     const json = await response.json();
-    //  console.log(json)
+    // console.log(json);
     // initialize checkJsonData() function to check Swiggy Restaurant data
     async function checkJsonData(jsonData) {
       for (let i = 0; i < jsonData?.data?.cards.length; i++) {
