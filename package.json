@@ -5,6 +5,7 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
+   
     "test": "jest"
   },
   "repository": {
@@ -16,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/sanizuku/namaste-react/issues"
   },
-  
+  "homepage": "https://sanizuku.github.io/namaste-react/",
   "devDependencies": {
     "parcel": "^2.12.0",
     "postcss": "^8.4.38",
