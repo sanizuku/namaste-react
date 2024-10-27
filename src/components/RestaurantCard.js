@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { CDN_URL } from "../utils/constants";
+import { joinCuisines, truncateString } from "../utils/helper";
 const RestaurantCard = (props) => {
-  // console.log(props)
+  // console.log(props);
   const {
     cloudinaryImageId,
     name,
@@ -13,34 +15,43 @@ const RestaurantCard = (props) => {
     avgRatingString,
     avgRating,
     sla,
+    id,
   } = props.resData?.info;
+  console.log("CUISINE", cuisines);
   return (
-    <div className="m-4 p-4 w-80 rounded-lg hover:shadow-2xl hover:bg-gray-200 hover:scale-90">
-      <img
-        className="rounded-lg"
-        alt="res-logo"
-        src={CDN_URL + cloudinaryImageId}
-      />
-      <h3 className="text-xl">{name}</h3>
-      <div className="flex space-x-2">
-        <h4>✪{avgRating}</h4>
-        <h4>{sla.slaString}</h4>
+    <Link key={id} to={"/restaurants/" + id}>
+      <div className="hover:scale-95 duration-300">
+        <div className=" min-w-[295px] h-[182px] relative">
+          <img
+            className="w-full h-full rounded-2xl object-cover"
+            alt="res-logo"
+            src={CDN_URL + cloudinaryImageId}
+          />
+          <div className="bg-gradient-to-t from-black from-1% to-transparent to-40%  rounded-2xl w-full h-full  absolute top-0"></div>
+        </div>
+        <div>
+          <h3 className="text-xl truncate">{truncateString(name, 27)}</h3>
+          <div className="flex space-x-2">
+            <h4>✪{avgRating}</h4>
+            <h4>{sla.slaString}</h4>
+          </div>
+          <h4 className="text-xs truncate">{joinCuisines(cuisines)}</h4>
+          <h4>{costForTwo}</h4>
+        </div>
       </div>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>{costForTwo}</h4>
-    </div>
+    </Link>
   );
 };
 
 export const WithBadge = (RestaurantCard) => {
   return (props) => {
     const { aggregatedDiscountInfoV3 } = props.resData.info;
-    console.log("jsjsjsj", aggregatedDiscountInfoV3, RestaurantCard);
+    // console.log("jsjsjsj", aggregatedDiscountInfoV3, RestaurantCard);
     return (
       <>
         <div className="relative">
           <RestaurantCard {...props} />
-          <h1 className="absolute bg-black text-white px-4 top-2 right-24">
+          <h1 className="absolute bottom-0 text-white text-2xl ml-8 mb-28 font-bold">
             {aggregatedDiscountInfoV3.header +
               aggregatedDiscountInfoV3.subHeader}
           </h1>

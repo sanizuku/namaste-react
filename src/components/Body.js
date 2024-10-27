@@ -5,42 +5,37 @@ import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import userContext from "../utils/UserContext";
+import CustomerMind from "./CustomerMind";
+import { checkJsonData } from "../utils/helper";
+import TopRestaurant from "./TopRestaurant";
 
 const Body = () => {
   //Local State Variable - super powerfull state variable
+  const [data, setData] = useState([]);
+  const [header, setHeader] = useState();
   const [listOfRestaurants, setrestaurantList] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [gridImages, setGridImages] = useState([]);
   const RestaurantCardBadge = WithBadge(RestaurantCard);
   console.log("BodyRendered");
   const { loggedInUser, setUserName } = useContext(userContext);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus == false) {
+    return <h1>Looks like internet not working!! Check your connection</h1>;
+  }
   const fetchData = async () => {
     // handle the error using try... catch
 
     const response = await fetch(swiggy_api_URL);
     const json = await response.json();
-    // console.log(json);
-    // initialize checkJsonData() function to check Swiggy Restaurant data
-    async function checkJsonData(jsonData) {
-      for (let i = 0; i < jsonData?.data?.cards.length; i++) {
-        // initialize checkData for Swiggy Restaurant data
-        let checkData =
-          jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
-            ?.restaurants;
-        // console.log(checkData)
-
-        // if checkData is not undefined then return it
-        if (checkData !== undefined) {
-          return checkData;
-        }
-      }
-    }
-
+    console.log(json);
+    setGridImages(json?.data?.cards[0]?.card?.card);
+    setHeader(json?.data?.cards[1]?.card?.card?.header);
+    setData(
+      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    console.log(json?.data?.cards[1]?.card?.card?.header);
     // // call the checkJsonData() function which return Swiggy Restaurant data
     const resDataa = await checkJsonData(json);
     console.log(resDataa);
@@ -51,16 +46,23 @@ const Body = () => {
     setFilteredRestaurant(resDataa);
   };
 
-  const onlineStatus = useOnlineStatus();
-  if (onlineStatus == false) {
-    return <h1>Looks like internet not working!! Check your connection</h1>;
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="flex">
-        <div className="m-4 p-4">
+    <div className="flex-1 overflow-y-scroll w-full">
+      {gridImages && (
+        <div className="flex w-[75%] mx-auto mt-2">
+          <CustomerMind data={gridImages} />
+        </div>
+      )}
+      <div className="w-full px-10 sm:w-[90%] lg:w-[80%] mx-auto mt-3 overflow-hidden">
+        <h1 className="font-bold text-2xl">{header?.title}</h1>
+        <TopRestaurant data={data} />
+
+        {/* <div className="m-4 p-4">
           <input
             type="text"
             className="border border-solid border-black"
@@ -121,9 +123,9 @@ const Body = () => {
               }}
             ></input>
           </div>
-        </div>
+        </div> */}
       </div>
-      <div className="flex flex-wrap">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 w-[75%] mx-auto">
         {filteredRestaurant.map((restaurant) => {
           return (
             <Link
@@ -135,12 +137,9 @@ const Body = () => {
               ) : (
                 <RestaurantCard resData={restaurant} />
               )}
-              {/* <RestaurantCard resData={restaurant} /> */}
             </Link> //built markup as well as logic returning jsx
           );
         })}
-
-        {/* <RestaurantCard/> */}
       </div>
     </div>
   );

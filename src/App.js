@@ -1,6 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import "/index.css";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
@@ -48,14 +47,14 @@ const appRouter = createBrowserRouter([
         path: "/",
         element: <Body />,
       },
-      {
-        path: "/About",
-        element: <About />,
-      },
-      {
-        path: "/Contact",
-        element: <Contact />,
-      },
+      // {
+      //   path: "/About",
+      //   element: <About />,
+      // },
+      // {
+      //   path: "/Contact",
+      //   element: <Contact />,
+      // },
       {
         path: "/Grocery",
         element: (

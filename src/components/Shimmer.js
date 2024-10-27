@@ -1,5 +1,3 @@
-import "../../index.css";
-
 const Shimmer = () => {
   return (
     <div className="flex flex-wrap">
