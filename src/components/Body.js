@@ -17,38 +17,44 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [gridImages, setGridImages] = useState([]);
-  const RestaurantCardBadge = WithBadge(RestaurantCard);
+  // const RestaurantCardBadge = WithBadge(RestaurantCard);
   console.log("BodyRendered");
   const { loggedInUser, setUserName } = useContext(userContext);
   const onlineStatus = useOnlineStatus();
-  if (onlineStatus == false) {
-    return <h1>Looks like internet not working!! Check your connection</h1>;
-  }
+
   const fetchData = async () => {
     // handle the error using try... catch
+    try {
+      const response = await fetch(swiggy_api_URL);
+      const json = await response.json();
+      console.log(json);
+      setGridImages(json?.data?.cards[0]?.card?.card);
+      setHeader(json?.data?.cards[1]?.card?.card?.header);
+      setData(
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      console.log(json?.data?.cards[1]?.card?.card?.header);
+      // // call the checkJsonData() function which return Swiggy Restaurant data
+      const resDataa = await checkJsonData(json);
+      console.log(resDataa);
 
-    const response = await fetch(swiggy_api_URL);
-    const json = await response.json();
-    console.log(json);
-    setGridImages(json?.data?.cards[0]?.card?.card);
-    setHeader(json?.data?.cards[1]?.card?.card?.header);
-    setData(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    console.log(json?.data?.cards[1]?.card?.card?.header);
-    // // call the checkJsonData() function which return Swiggy Restaurant data
-    const resDataa = await checkJsonData(json);
-    console.log(resDataa);
+      // update the state variable restaurants with Swiggy API data
+      setrestaurantList(resDataa);
 
-    // update the state variable restaurants with Swiggy API data
-    setrestaurantList(resDataa);
-
-    setFilteredRestaurant(resDataa);
+      setFilteredRestaurant(resDataa);
+    } catch {
+      <Shimmer />;
+    }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+  if (onlineStatus === false) {
+    return <h1>Looks like internet not working!! Check your connection</h1>;
+  }
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -125,20 +131,9 @@ const Body = () => {
           </div>
         </div> */}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 w-[75%] mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 w-[75%] mx-auto ">
         {filteredRestaurant.map((restaurant) => {
-          return (
-            <Link
-              key={restaurant.info.id}
-              to={"/restaurants/" + restaurant.info.id}
-            >
-              {restaurant.info.aggregatedDiscountInfoV3 ? (
-                <RestaurantCardBadge resData={restaurant} />
-              ) : (
-                <RestaurantCard resData={restaurant} />
-              )}
-            </Link> //built markup as well as logic returning jsx
-          );
+          return <RestaurantCard resData={restaurant} />;
         })}
       </div>
     </div>

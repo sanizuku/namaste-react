@@ -40,11 +40,11 @@ const Header = () => {
   //Subscribing to the store using Selector
   const cartItem = useSelector((store) => store.cart.items);
   return (
-    <div className="w-full flex justify-center sticky top-0 shadow-lg h-20 items-center">
+    <div className="w-full flex justify-center  top-0 shadow-lg h-20 items-center">
       <div className=" w-[70%] flex justify-between">
         <div className="flex items-center gap-6">
           <Link to="/">
-            <img className="h-20" alt="food-logo" src={LOGO_URL} />
+            <img className="h-16" alt="food-logo" src={LOGO_URL} />
           </Link>
           <ul>
             <li className="p-2 my-4 ">
@@ -67,7 +67,7 @@ const Header = () => {
           </li> */}
         <div className="flex items-center gap-6">
           {navItems.map((data) => (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 hover:text-orange-600">
               <i className={"mt-1 fi " + data.img}></i>
               <Link className="text-lg" to={data.link}>
                 {data.name}
